@@ -1,1 +1,2 @@
 # Student-management-system
+The **Student Management System** is a JavaScript application built using Object-Oriented Programming principles. It includes a base `Person` class to represent individuals with basic details like name and ID. The `Student` class extends `Person`, adding functionalities like managing grades and calculating average grades. The `StudentManagementSystem` class provides methods to add students, view their details, and manage their grades. It demonstrates key OOP concepts: encapsulation, inheritance, abstraction, and polymorphism.
