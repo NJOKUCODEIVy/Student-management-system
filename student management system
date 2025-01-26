@@ -1,0 +1,117 @@
+// Student Management System
+// demonstrates encapsulation and abstraction
+class Person {
+  constructor(name, matricNo) {
+    this._name = name; // Encapsulation: using Unique variables names and matric number are assigned to a particular object
+    this._id = matricNo;
+  }
+
+  // Getter for name
+  getName() {
+    return this._name;
+  }
+
+  // Getter for matric number
+  getId() {
+    return this._id;
+  }
+
+  //display necessary details
+  displayDetails() {
+    return `Name: ${this._name}, matricNo: ${this._id}`;
+  }
+}
+
+ //inheritance
+class Student extends Person {
+  constructor(name, matricNo) {
+    super(name, matricNo);
+    this._grades = []; // Initialize an empty array for grades
+  }
+
+  // Add a grade to the student
+  addGrade(grade) {
+    if (grade >= 0 && grade <= 100) {
+      this._grades.push(grade);
+    } else {
+      console.log("Grade must be between 0 and 100.");
+    }
+  }
+
+  // Calculate average grade
+  calculateAverageGrade() {
+    if (this._grades.length === 0) {
+      return "No grades available for the student in the data base.";
+    }
+    const total = this._grades.reduce((sum, grade) => sum + grade, 0);
+    return (total / this._grades.length).toFixed(2);
+  }
+
+  // Polymorphism: Override displayDetails to include grades
+  displayDetails() {
+    const basicDetails = super.displayDetails();
+    const averageGrade = this.calculateAverageGrade();
+    return `${basicDetails}, Average Grade: ${averageGrade}`;
+  }
+}
+
+// Student Management System class (demonstrates abstraction)
+class StudentManagementSystem {
+  constructor() {
+    this.students = []; // Store students in an array
+  }
+
+  // Add a new student
+  addStudent(name, matricNo) {
+    const student = new Student(name, matricNo);
+    this.students.push(student);
+    console.log(`Student ${name} (matricNo: ${matricNo}) added.`);
+  }
+
+  // Find a student by matric number
+  findStudentById(matricNo) {
+    return this.students.find((student) => student.getId() === matricNo);
+  }
+
+  // View student details
+  viewStudentDetails(id) {
+    const student = this.findStudentById(id);
+    if (student) {
+      console.log(student.displayDetails());
+    } else {
+      console.log(`Student with matric number ${id} not found.`);
+    }
+  }
+
+  // Add a grade to a student
+  addGradeToStudent(id, grade) {
+    const student = this.findStudentById(id);
+    if (student) {
+      student.addGrade(grade);
+      console.log(`Grade ${grade} added to student with ID ${id}.`);
+    } else {
+      console.log(`Student with matric number ${id} not found.`);
+    }
+  }
+}
+
+// Example usage
+const sms = new StudentManagementSystem();
+
+
+
+sms.addStudent("Njoku ", "22/285");
+sms.addStudent("Kelechi", "22/289");
+
+sms.addGradeToStudent("22/285", 95);
+
+sms.addGradeToStudent("22/289", 88);
+
+sms.addGradeToStudent("22/285", 72);
+
+sms.addGradeToStudent("22/289", 85);
+
+sms.viewStudentDetails("22/285");
+
+sms.viewStudentDetails("22/289");
+sms.viewStudentDetails("22/103"); // Non-existent student
